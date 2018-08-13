@@ -637,6 +637,7 @@ defmodule Mix.Releases.Runtime.Control do
     unless is_binary(release) and is_binary(version) do
       Console.error("You must provide both --release and --version to 'unpack_release'")
     end
+    Console.warn("(636) releases/#{version}/flowmail_web.rel: #{File.exists?("releases/#{version}/flowmail_web.rel")}\n")
 
     releases = which_releases(release, peer)
 
@@ -657,6 +658,7 @@ defmodule Mix.Releases.Runtime.Control do
 
           {:ok, vsn} ->
             Console.success("Unpacked #{inspect(vsn)} successfully!")
+            Console.warn("(661) releases/#{vsn}/flowmail_web.rel: #{File.exists?("releases/#{vsn}/flowmail_web.rel")}\n")
 
           {:error, reason} ->
             Console.warn("Installed versions:")
@@ -700,6 +702,7 @@ defmodule Mix.Releases.Runtime.Control do
             Console.error("Failed during remote call with: #{inspect(reason)}")
 
           {:ok, _} ->
+            Console.warn("(705) releases/#{version}/flowmail_web.rel: #{File.exists?("releases/#{version}/flowmail_web.rel")}\n")
             Console.info("Unpacked #{version} successfully!")
             install_and_permafy(peer, release, version)
 
@@ -718,6 +721,7 @@ defmodule Mix.Releases.Runtime.Control do
         install_and_permafy(peer, release, version)
 
       {_ver, :unpacked} ->
+        Console.warn("(724) releases/#{version}/flowmail_web.rel: #{File.exists?("releases/#{version}/flowmail_web.rel")}\n")
         Console.info("Release #{release}:#{version} is already unpacked, installing..")
         install_and_permafy(peer, release, version)
 
